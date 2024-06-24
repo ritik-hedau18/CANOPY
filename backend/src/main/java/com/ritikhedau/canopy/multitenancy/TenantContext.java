@@ -1,0 +1,23 @@
+package com.ritikhedau.canopy.multitenancy;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class TenantContext {
+    private static final ThreadLocal<String> currentTenant = new ThreadLocal<>();
+
+    public static void setCurrentTenant(String tenantId) {
+        log.debug("Setting tenant context to: {}", tenantId);
+        currentTenant.set(tenantId);
+    }
+
+    public static String getCurrentTenant() {
+        return currentTenant.get();
+    }
+
+    public static void clear() {
+        log.debug("Clearing tenant context");
+        currentTenant.remove();
+    }
+}
+// minor tweak: update verification rules and configs
